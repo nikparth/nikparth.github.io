@@ -43,16 +43,16 @@ education:
 #   form "mailto:your-email@example.com" or "#contact" for contact widget.
 social:
 - icon: envelope
-  icon_pack: fas
+  icon_pack: fa
   link: "mailto:np1742@nyu.edu"  
 - icon: linkedin
-  icon_pack: fas
+  icon_pack: fa
   link: https://linkedin.com/in/nikparth
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.co.uk/citations?user=X9mO4ckAAAAJ
 - icon: github
-  icon_pack: fab
+  icon_pack: fa
   link: https://github.com/nikparth
  - icon: cv
    icon_pack: ai
