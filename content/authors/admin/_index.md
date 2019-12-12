@@ -47,13 +47,13 @@ social:
   link: "mailto:np1742@nyu.edu"  # For a direct email link, use "mailto:test@example.org".
 - icon: linkedin
   icon_pack:fa
-  link: https://linkedin.com/in/nikparth
+  link: "https://linkedin.com/in/nikparth"
 - icon: google-scholar
   icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=X9mO4ckAAAAJ
+  link: "https://scholar.google.co.uk/citations?user=X9mO4ckAAAAJ"
 - icon: github
   icon_pack: fab
-  link: https://github.com/nikparth
+  link: "https://github.com/nikparth"
  - icon: cv
    icon_pack: ai
    link: files/cv.pdf
