@@ -54,9 +54,9 @@ social:
 - icon: github
   icon_pack: fab
   link: https://github.com/nikparth
-- icon: cv
-  icon_pack: ai
-  link: files/cv.pdf
+#  icon: cv
+#  icon_pack: ai
+#  link: files/cv.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: ""
@@ -68,4 +68,4 @@ user_groups:
 - Visitors
 ---
 
-Hi my name is Nikhil! I'm a 3rd Year PhD student in the Lab for Computational Vision at NYU's Center for Neural Science, advised by Eero Simoncelli. 
+Hi my name is Nikhil! I'm a 3rd Year PhD student in the Lab for Computational Vision at NYU's Center for Neural Science, advised by Eero Simoncelli. Broadly, my research focuses on developing biologically inspired computer vision models that can also be used to explain and understand properties of the visual representation in primate visual cortex. Currently, I am specifically focused on developing a learned model of visual texture that can also explain the representation in cortical area V2. 
