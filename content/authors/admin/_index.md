@@ -52,7 +52,7 @@ social:
   icon_pack: ai
   link: https://scholar.google.co.uk/citations?user=X9mO4ckAAAAJ
 - icon: github
-  icon_pack: fa
+  icon_pack: fab
   link: https://github.com/nikparth
 - icon: cv
   icon_pack: ai
