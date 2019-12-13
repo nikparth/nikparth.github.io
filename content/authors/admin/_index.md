@@ -46,7 +46,7 @@ social:
   icon_pack: fa
   link: "mailto:np1742@nyu.edu"  
 - icon: linkedin
-  icon_pack: fa
+  icon_pack: fas
   link: https://linkedin.com/in/nikparth
 - icon: google-scholar
   icon_pack: ai
