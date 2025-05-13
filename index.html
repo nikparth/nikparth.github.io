@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikhil Parthasarathy - Personal Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc; /* Tailwind: bg-slate-50 - Base color */
+            /* Updated circuit/neural network-like pattern - Darker opacities */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(148,163,184,0.12)' stroke-width='1'%3E%3Cpath d='M0 50h100M50 0v100'/%3E%3Cpath d='M0 0l100 100M0 100L100 0'/%3E%3Cpath d='M25 0v100M75 0v100M0 25h100M0 75h100'/%3E%3Ccircle cx='50' cy='50' r='5' fill='rgba(148,163,184,0.15)'/%3E%3Ccircle cx='25' cy='25' r='3' fill='rgba(148,163,184,0.12)'/%3E%3Ccircle cx='75' cy='25' r='3' fill='rgba(148,163,184,0.12)'/%3E%3Ccircle cx='25' cy='75' r='3' fill='rgba(148,163,184,0.12)'/%3E%3Ccircle cx='75' cy='75' r='3' fill='rgba(148,163,184,0.12)'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+
+        /* General Card Styling for main content sections */
+        .main-section-card {
+            background-color: white;
+            padding: 2rem; /* p-8 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+            margin-bottom: 3rem; /* mb-12 */
+        }
+        .main-section-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* --- Horizontal Timeline Styles --- */
+        .horizontal-timeline-container {
+            width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-y: hidden; /* Hide vertical scrollbar if any */
+            padding: 1rem 0; 
+            position: relative; 
+        }
+
+        .timeline {
+            display: inline-flex; 
+            position: relative;
+            padding: 14rem 0; /* Increased vertical padding for even more bubble space */
+            min-width: 100%; 
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0; 
+            height: 4px;
+            background-color: #5eead4; /* teal-300 */
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .timeline-event {
+            position: relative; 
+            min-width: 320px; 
+            padding: 0 2rem; 
+            height: 100%; 
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background-color: #0d9488; /* teal-600 */
+            border: 3px solid white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            z-index: 3; 
+        }
+        
+        .timeline-event-content {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            width: 100%;
+            max-width: 280px; 
+            text-align: left;
+            border: 1px solid #cbd5e1; 
+            position: absolute; 
+            left: 50%;
+            transform: translateX(-50%); 
+            z-index: 2; 
+        }
+
+        .timeline-event:nth-child(odd) .timeline-event-content {
+            bottom: calc(50% + 25px); 
+        }
+        .timeline-event:nth-child(odd) .timeline-event-content::after { 
+            content: "";
+            position: absolute;
+            bottom: -10px; 
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0 10px;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+        }
+
+        .timeline-event:nth-child(even) .timeline-event-content {
+            top: calc(50% + 25px); 
+        }
+        .timeline-event:nth-child(even) .timeline-event-content::after { 
+            content: "";
+            position: absolute;
+            top: -10px; 
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 10px 10px 10px;
+            border-style: solid;
+            border-color: transparent transparent white transparent;
+        }
+        
+        .timeline-date {
+            display: block;
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            color: #0f766e; 
+            margin-bottom: 0.25rem; 
+        }
+        /* --- End Horizontal Timeline Styles --- */
+
+        /* Custom scrollbar styling */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #e2e8f0; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #94a3b8; 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+
+        /* Publication Teaser Image Container */
+        .publication-teaser-container {
+            position: relative; 
+            width: 160px; 
+            height: 120px; 
+            overflow: hidden; 
+            border-radius: 0.375rem; 
+        }
+
+        .publication-teaser-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            border-radius: 0.375rem; 
+            background-color: #e2e8f0; 
+            transition: transform 0.3s ease-in-out;
+        }
+         .publication-teaser-container:hover .publication-teaser-img {
+            transform: scale(1.05); 
+        }
+
+
+        .teaser-expand-icon {
+            position: absolute;
+            bottom: 0.5rem; /* p-2 */
+            right: 0.5rem; /* p-2 */
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            width: 1.75rem; /* w-7 */
+            height: 1.75rem; /* h-7 */
+            border-radius: 0.25rem; /* rounded-sm */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8; /* Always visible, slightly transparent */
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            cursor: pointer; /* Make icon clickable */
+            z-index: 10; /* Ensure it's above the image */
+        }
+        .teaser-expand-icon:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            opacity: 1;
+        }
+
+
+        /* Timeline Content Link */
+        .timeline-content-link {
+            color: #0d9488; 
+            font-weight: 500; 
+            text-decoration: underline;
+        }
+        .timeline-content-link:hover {
+            color: #0f766e; 
+        }
+
+        /* Publication Highlight */
+        .highlighted-publication {
+            background-color: #f0fdfa !important; 
+            border-color: #2dd4bf !important; 
+        }
+
+        .publication-item {
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+            border: 1px solid #e2e8f0; 
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        .publication-item:hover {
+            background-color: #f8fafc; 
+            border-color: #cbd5e1; 
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.7); 
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 0.5rem; 
+            width: 90%;
+            max-width: 700px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh; 
+            border-radius: 0.25rem; 
+            margin-bottom: 15px;
+        }
+        .close-modal-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal-button:hover,
+        .close-modal-button:focus {
+            color: #333;
+            text-decoration: none;
+        }
+        /* --- End Modal Styles --- */
+
+    </style>
+</head>
+<body class="text-slate-800"> <header class="bg-gradient-to-br from-teal-800 via-cyan-600 to-emerald-500 text-white py-12 md:py-16 shadow-2xl">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="flex-shrink-0">
+                    <img src="assets/profile-photo.jpg" alt="Nikhil Parthasarathy" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover" onerror="this.onerror=null;this.src='https://placehold.co/160x160/EBF4FF/76A9FA?text=Nikhil';">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Nikhil Parthasarathy, Ph.D.</h1>
+                    <p class="mt-2 text-xl md:text-2xl text-cyan-100">Research Scientist at Google DeepMind</p>
+                    <div class="mt-6 flex justify-center md:justify-start space-x-5 items-center"> 
+                        <a href="http://www.linkedin.com/in/nikparth" target="_blank" class="text-cyan-100 hover:text-white transition-colors duration-300 text-2xl transform hover:scale-110" aria-label="LinkedIn Profile" title="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                        <a href="YOUR_GOOGLE_SCHOLAR_LINK_HERE" target="_blank" class="text-cyan-100 hover:text-white transition-colors duration-300 text-2xl transform hover:scale-110" aria-label="Google Scholar Profile" title="Google Scholar Profile"><i class="fas fa-graduation-cap"></i></a>
+                        <a href="YOUR_X_PROFILE_LINK_HERE" target="_blank" class="text-cyan-100 hover:text-white transition-colors duration-300 text-2xl transform hover:scale-110" aria-label="X (Twitter) Profile" title="X (Twitter) Profile"><i class="fab fa-twitter"></i></a>
+                        <a href="mailto:nikparth@gmail.com" class="text-cyan-100 hover:text-white transition-colors duration-300 text-2xl transform hover:scale-110" aria-label="Email Nikhil" title="Email Nikhil"><i class="fas fa-envelope"></i></a>
+                        <a href="assets/Nikhil_CV.pdf" target="_blank" class="text-cyan-100 hover:text-white transition-colors duration-300 text-2xl font-semibold transform hover:scale-110" aria-label="Download CV" title="Download CV">
+                            CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 max-w-5xl">
+
+        <section id="about" class="main-section-card">
+            <h2 class="text-3xl font-bold text-teal-700 mb-6 border-b-2 border-teal-200 pb-3">About Me</h2>
+            <p class="text-lg text-slate-700 leading-relaxed">
+                Hi, I'm Nikhil, a Research Scientist at Google DeepMind (GDM)! My interests span a broad range of topics including efficient multimodal learning, active learning, self-supervised representation learning, visual neuroscience/perception, and AI alignment with human behavior. Prior to GDM, I completed my PhD from New York University under the supervision of Eero Simoncelli and was a member of the Flatiron Center for Computational Neuroscience. I also have BS and MS degrees from Stanford University where I studied a wide-range of things including signal processing, machine learning, numerical methods, optimization and computational biology.
+            </p>
+            <p class="mt-4 text-lg text-slate-700 leading-relaxed">
+                In my free-time I'm an avid tennis player, skiier, rock climber, and classical guitarist.
+            </p>
+        </section>
+
+        <section id="updates-timeline-section" class="main-section-card">
+            <h2 class="text-3xl font-bold text-teal-700 mb-6 border-b-2 border-teal-200 pb-3">Updates & Timeline</h2>
+            <div class="horizontal-timeline-container custom-scrollbar">
+                <div class="timeline">
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Feb 2025</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                <a href="#publication-1" class="timeline-content-link publication-link">We've released SigLIP 2</a>: a new family of SoTA vision encoders for the open-source community to build on! Check out the <a href="https://huggingface.co/blog/siglip2" target="_blank" class="timeline-content-link">blog post</a>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Feb 2025</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Our work showing <a href="#publication-2" class="timeline-content-link publication-link">SoTA multimodal "distillation through data"</a> was accepted to CVPR 2025!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Sep 2024</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Our work developing a method to <a href="#publication-3" class="timeline-content-link publication-link">accelerate large-scale multimodal pretraining via online batch selection</a> was accepted to NeurIPS 2024 Datasets and Benchmarks Track!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">June 2024</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Our work developing a <a href="#publication-6" class="timeline-content-link publication-link">biologically-inspired SSL model of cortical area V2</a> was accepted at TMLR with a Featured Certification!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Jan 2024</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Started as a Research Scientist at Google DeepMind (now in the Vision Team led by Prof Andrew Zisserman)!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Nov 2023</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Defended my PhD in Neural Science at NYU!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">Sep 2023</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Our works on learning <a href="#publication-8" class="timeline-content-link publication-link">robust and human-aligned visual representations from natural video</a> and <a href="#publication-7" class="timeline-content-link publication-link">in-context scene understanding</a> were accepted at NeurIPS 2023!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-event-content">
+                            <span class="timeline-date">June 2022</span>
+                            <p class="text-slate-600 text-sm leading-relaxed">Started as a Research Scientist Intern at Google DeepMind in the Deep Learning Team!</p>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="publications" class="main-section-card">
+            <h2 class="text-3xl font-bold text-teal-700 mb-8 border-b-2 border-teal-200 pb-3">Selected Publications</h2>
+            <div class="space-y-8">
+                <div id="publication-1" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser1.jpg" alt="Publication Teaser Figure 1" class="publication-teaser-img" data-modal-src="assets/teaser1-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+1';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+1+Large';">
+                        <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed">M. Tschannen*, A. Gritsenko*, X. Wang*, M. F. Naeem*, I. Alabdulmohsin*, <strong>N. Parthasarathy*</strong>, T. Evans*, L. Beyer*, Y. Xia, B. Mustafa, O. Hénaff, J. Harmsen, A. Steiner, and X. Zhai*, "Siglip 2: Multilingual vision-language encoders with improved semantic understanding, localization, and dense features," <em>Technical Report, arXiv preprint arXiv:2502.14786</em>, 2025.
+                        <a href="YOUR_PAPER_LINK_HERE_1" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-2" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser2.jpg" alt="Publication Teaser Figure 2" class="publication-teaser-img" data-modal-src="assets/teaser2-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+2';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+2+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed">V. Udandarao*, <strong>N. Parthasarathy*</strong>, M. F. Naeem, T. Evans, S. Albanie, F. Tombari, Y. Xian, A. Tonioni, and O. J. Hénaff, "Active data curation effectively distills large-scale multimodal models," <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2025.
+                        <a href="YOUR_PAPER_LINK_HERE_2" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-3" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                     <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser3.jpg" alt="Publication Teaser Figure 3" class="publication-teaser-img" data-modal-src="assets/teaser3-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+3';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+3+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed">T. Evans, <strong>N. Parthasarathy*</strong>, H. Merzic, and O. J. Henaff*, "Data curation via joint example selection further accelerates multimodal learning," <em>Advances in Neural Information Processing Systems, Track on Datasets and Benchmarks, Spotlight Award</em>, 2024.
+                        <a href="YOUR_PAPER_LINK_HERE_3" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-4" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser4.jpg" alt="Publication Teaser Figure 4" class="publication-teaser-img" data-modal-src="assets/teaser4-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+4';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+4+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed">M. Kuoch, C.-N. Chou, <strong>N. Parthasarathy</strong>, J. Dapello, J. J. DiCarlo, H. Sompolinsky, and S. Chung, "Probing biological and artificial neural networks with task-dependent neural manifolds," <em>Conference on Parsimony and Learning</em>, pp. 395-418, 2024.
+                        <a href="YOUR_PAPER_LINK_HERE_4" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-5" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser5.jpg" alt="Publication Teaser Figure 5" class="publication-teaser-img" data-modal-src="assets/teaser5-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+5';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+5+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed"><strong>N. Parthasarathy</strong>, "Towards aligning artificial and biological vision systems with self-supervised representation learning," <em>Ph.D. dissertation, New York University</em>, 2024.
+                        <a href="YOUR_PAPER_LINK_HERE_5" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper/Thesis]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-6" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser6.jpg" alt="Publication Teaser Figure 6" class="publication-teaser-img" data-modal-src="assets/teaser6-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+6';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+6+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed"><strong>N. Parthasarathy*</strong>, O. J. Hénaff, and E. P. Simoncelli, "Layerwise complexity-matched learning yields an improved model of cortical area v2," <em>Transactions on Machine Learning Research (TMLR), Outstanding Certification</em>, 2024.
+                        <a href="YOUR_PAPER_LINK_HERE_6" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-7" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser7.jpg" alt="Publication Teaser Figure 7" class="publication-teaser-img" data-modal-src="assets/teaser7-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+7';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+7+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed">I. Balazevic*, D. Steiner*, <strong>N. Parthasarathy</strong>, R. Arandjelović, and O. Henaff*, "Towards in-context scene understanding," <em>Advances in Neural Information Processing Systems, Spotlight Award</em>, vol. 36, pp. 63 758-63 778, 2023.
+                        <a href="YOUR_PAPER_LINK_HERE_7" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="publication-8" class="publication-item flex flex-col md:flex-row gap-6 items-start">
+                    <div class="publication-teaser-container flex-shrink-0">
+                        <img src="assets/teaser8.jpg" alt="Publication Teaser Figure 8" class="publication-teaser-img" data-modal-src="assets/teaser8-large.jpg" onerror="this.onerror=null;this.src='https://placehold.co/160x120/E2E8F0/475569?text=Teaser+8';this.dataset.modalSrc='https://placehold.co/600x450/E2E8F0/475569?text=Teaser+8+Large';">
+                         <div class="teaser-expand-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-slate-700 leading-relaxed"><strong>N. Parthasarathy*</strong>, S. Eslami, J. Carreira, and O. Hénaff, "Self-supervised video pretraining yields robust and more human-aligned visual representations," <em>Advances in Neural Information Processing Systems</em>, vol. 36, pp. 65 743-65 765, 2023.
+                        <a href="YOUR_PAPER_LINK_HERE_8" target="_blank" class="text-teal-600 hover:text-teal-700 font-medium ml-2">[Paper]</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <p class="text-slate-600 text-sm"><em>For a full list of publications, please refer to my <a href="YOUR_GOOGLE_SCHOLAR_LINK_HERE" target="_blank" class="text-teal-600 hover:text-teal-700">Google Scholar profile</a>.</em></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-button" id="closeModal">&times;</span>
+            <img src="" alt="Enlarged Teaser Figure" id="modalImage" class="modal-image">
+        </div>
+    </div>
+
+    <footer class="bg-slate-800 text-slate-300 py-10 text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; <span id="currentYear"></span> Nikhil Parthasarathy. All rights reserved.</p>
+            <p class="text-sm mt-2">Designed with <a href="https://tailwindcss.com/" target="_blank" class="hover:text-cyan-400 transition-colors">Tailwind CSS</a> & Hosted on GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set the current year in the footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Highlight linked publication on click
+        const publicationLinks = document.querySelectorAll('a.publication-link');
+        let highlightedElement = null;
+
+        publicationLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    if (highlightedElement) {
+                        highlightedElement.classList.remove('highlighted-publication');
+                    }
+                    targetElement.classList.add('highlighted-publication');
+                    highlightedElement = targetElement;
+                    setTimeout(() => {
+                        if (targetElement.classList.contains('highlighted-publication')) {
+                            targetElement.classList.remove('highlighted-publication');
+                        }
+                        if (highlightedElement === targetElement) {
+                            highlightedElement = null;
+                        }
+                    }, 3000);
+                }
+            });
+        });
+
+        // Image Modal Logic
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        // Select the icon containers for click events
+        const teaserIconButtons = document.querySelectorAll('.teaser-expand-icon');
+        const closeModalButton = document.getElementById('closeModal');
+
+        teaserIconButtons.forEach(iconButton => {
+            iconButton.addEventListener('click', function() {
+                // Find the image within the same parent .publication-teaser-container
+                const container = this.closest('.publication-teaser-container');
+                const img = container.querySelector('.publication-teaser-img');
+                
+                modal.style.display = "flex"; 
+                modalImg.src = img.dataset.modalSrc || img.src; 
+            });
+        });
+
+        closeModalButton.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
